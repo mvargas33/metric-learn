@@ -2,6 +2,7 @@ import numpy as np
 from scipy.sparse.linalg import eigsh, ArpackNoConvergence
 from scipy.linalg import eigh, eig
 
+# Rotate the function used to calculate the eigenvalues
 def _eigh(a, b, dim, i=0):
   if i%3 == 0:
     try:
@@ -22,8 +23,7 @@ def find_error_eigenvalues():
   attempt = 1
   while True:
     a = np.random.rand(2,2)
-    # Symemtrice
-    a = (a + a.T) / 2
+    a = (a + a.T) / 2 # Symemtrice
     
     prev = []
     n = set()
@@ -33,9 +33,9 @@ def find_error_eigenvalues():
         if v[0] not in prev: # First value of an eigenvector
           prev.append(v[0])
           _ = [n.add(x) for x in vals]
-          #print(f'New vals: {val}')
+
     if len(set(prev)) % np.shape(a)[0] > 0:
-      print(f'Found {len(n)} eigenvalues{n}')
+      print(f'Found {len(n)} eigenvalues {n}')
       print(f'First {len(set(prev))} values of vectors found {prev}')
       print(f'Aattempts: {attempt}')
       return
